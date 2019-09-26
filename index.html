@@ -32,7 +32,12 @@
         { id: 8, name: 'shep Jr.'},
         { id: 99, name: 'lucy'}
       ];
-      
+      const favEmployee = docuemnt.querySelector('.employee');
+
+      favEmployee.addEventListener('click', (evt) => {
+        evt.target.classList.add('fav-employee');
+      })
+
     </script>
 
 </html>
