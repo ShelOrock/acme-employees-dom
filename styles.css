@@ -1,15 +1,17 @@
 body {
-  font-family: sans-serif;
+  font-family: Tahoma, sans-serif;
+  padding: 0.5rem;
 }
 
 #grid {
   display: flex;
   flex-wrap: wrap;
+  padding: 0 1rem;
 }
 
 .employee {
   margin: 1rem;
-  width: 200px;
+  width: calc(100% / 3 - 6rem);
   background-color: #b3e8e9;
   border: 2px solid #fef6de;
   text-align: center;
@@ -25,4 +27,16 @@ body {
 span {
   padding: 0 0.5rem;
   margin-left: 0.75rem;
+}
+
+@media (max-width: 600px) {
+  body {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .employee {
+    width: 100%;
+    margin: 1rem 0;
+  }
 }
