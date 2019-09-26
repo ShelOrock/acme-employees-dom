@@ -1,43 +1,67 @@
 <html>
-    <head>
-        <title>Acme Employees DOM</title>
-        <link rel="stylesheet" href="styles.css" />
-    </head>
-    <body>
-        <h1>Acme Employees DOM</h1>
-        <div id='main-container'>
-            <h2>Choose your three favorite employees.</h2>
-            <div id="grid">
-                <div class="employee">moe</div>
-                <div class="employee">larry</div>
-                <div class="employee">shep</div>
-                <div class="employee">curly</div>
-                <div class="employee">groucho</div>
-                <div class="employee">harpo</div>
-                <div class="employee">shep Jr.</div>
-                <div class="employee">lucy</div>
-            </div>
-            <h2>Favorite: <span></span></h2>
-        </div>
-    </body>
-    <script>
-    
+  <head>
+    <title>Acme Employees DOM</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Acme Employees DOM</h1>
+    <div id="main-container">
+      <p>Choose your three favorite employees.</p>
+      <div id="grid">
+        <div class="employee">moe</div>
+        <div class="employee">larry</div>
+        <div class="employee">shep</div>
+        <div class="employee">curly</div>
+        <div class="employee">groucho</div>
+        <div class="employee">harpo</div>
+        <div class="employee">shep Jr.</div>
+        <div class="employee">lucy</div>
+      </div>
+      <p>Favorite: <span class="fav-employee"></span></p>
+    </div>
+  </body>
+  <script>
     const employees = [
-        { id: 1, name: 'moe'},
-        { id: 2, name: 'larry'},
-        { id: 4, name: 'shep'},
-        { id: 3, name: 'curly'},
-        { id: 5, name: 'groucho'},
-        { id: 6, name: 'harpo'},
-        { id: 8, name: 'shep Jr.'},
-        { id: 99, name: 'lucy'}
-      ];
-      const favEmployee = docuemnt.querySelector('.employee');
-
-      favEmployee.addEventListener('click', (evt) => {
-        evt.target.classList.add('fav-employee');
+      { id: 1, name: 'moe' },
+      { id: 2, name: 'larry' },
+      { id: 4, name: 'shep' },
+      { id: 3, name: 'curly' },
+      { id: 5, name: 'groucho' },
+      { id: 6, name: 'harpo' },
+      { id: 8, name: 'shep Jr.' },
+      { id: 99, name: 'lucy' },
+    ];
+    const favEmployee = document.querySelectorAll('div .employee');
+    console.log(favEmployee);
+    let empId = [];
+    favEmployee.forEach((node, idx) =>
+      node.addEventListener('click', evt => {
+        if (empId.length >= 3 && !evt.target.classList.contains('fav-employee')) {
+          alert('Something');
+        } else {
+            if(evt.target.classList.contains('fav-employee')){
+                evt.target.classList.remove('fav-employee');
+            
+            }
+        }
+          
+        console.log(empId);
       })
-
-    </script>
-
+    );
+  </script>
 </html>
+
+
+//evt.target.classList.add('fav-employee');
+  //        employees.forEach(item => {
+    //        if (item.name === evt.target.innerText) {
+      //        empId.push(item.id);
+        //    }
+        //  });
+       // }
+
+         //if (evt.target.classList.contains('fav-employee')) {
+          //evt.target.classList.remove('fav-employee');
+         // if(item.name === evt.target.innerText){
+           //     empId.push(item.id);
+       // }

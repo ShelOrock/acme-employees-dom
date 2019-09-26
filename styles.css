@@ -1,0 +1,28 @@
+body {
+    font-family: sans-serif;
+}
+
+#grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.employee {
+    margin: 1rem;
+    width: 200px;
+    background-color: lightblue;
+    border: 2px solid gold;
+    text-align: center;
+    font-size: 1.75rem;
+    padding: 1.5rem;
+}
+
+.fav-employee {
+    background-color: beige;
+}
+
+span {
+    padding: 0 0.5rem;
+    border: 2px solid lightblue;
+    margin-left: 1rem;
+}
