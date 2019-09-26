@@ -32,36 +32,38 @@
       { id: 99, name: 'lucy' },
     ];
     const favEmployee = document.querySelectorAll('div .employee');
-    console.log(favEmployee);
-    let empId = [];
-    favEmployee.forEach((node, idx) =>
+    let favorites = [];
+    favEmployee.forEach(node =>
       node.addEventListener('click', evt => {
-        if (empId.length >= 3 && !evt.target.classList.contains('fav-employee')) {
-          alert('Something');
+        if (
+          favorites.length === 3 &&
+          !evt.target.classList.contains('fav-employee')
+        ) {
+          alert('there is a max of 3 favorites, sorry.');
         } else {
-            if(evt.target.classList.contains('fav-employee')){
-                evt.target.classList.remove('fav-employee');
-            
-            }
+          if (evt.target.classList.contains('fav-employee')) {
+            evt.target.classList.remove('fav-employee');
+
+            employees.forEach(employee => {
+              let idToFilterOut;
+              if (employee.name === evt.target.innerText) {
+                idToFilterOut = employee.id;
+              }
+              favorites = favorites.filter(idToSearch => {
+                return idToSearch !== idToFilterOut;
+              });
+            });
+          } else {
+            evt.target.classList.add('fav-employee');
+            employees.forEach(employee => {
+              if (employee.name === evt.target.innerText) {
+                favorites.push(employee.id);
+              }
+            });
+          }
         }
-          
-        console.log(empId);
+        console.log(favorites);
       })
     );
   </script>
 </html>
-
-
-//evt.target.classList.add('fav-employee');
-  //        employees.forEach(item => {
-    //        if (item.name === evt.target.innerText) {
-      //        empId.push(item.id);
-        //    }
-        //  });
-       // }
-
-         //if (evt.target.classList.contains('fav-employee')) {
-          //evt.target.classList.remove('fav-employee');
-         // if(item.name === evt.target.innerText){
-           //     empId.push(item.id);
-       // }
