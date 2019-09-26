@@ -1,28 +1,42 @@
 body {
-    font-family: sans-serif;
+  font-family: Tahoma, sans-serif;
+  padding: 0.5rem;
 }
 
 #grid {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 1rem;
 }
 
 .employee {
-    margin: 1rem;
-    width: 200px;
-    background-color: lightblue;
-    border: 2px solid gold;
-    text-align: center;
-    font-size: 1.75rem;
-    padding: 1.5rem;
+  margin: 1rem;
+  width: calc(100% / 3 - 6rem);
+  background-color: #b3e8e9;
+  border: 2px solid #fef6de;
+  text-align: center;
+  font-size: 1.75rem;
+  padding: 1.5rem;
 }
 
 .fav-employee {
-    background-color: beige;
+  background-color: #fef6de;
+  border: 2px solid #b3e8e9;
 }
 
 span {
-    padding: 0 0.5rem;
-    border: 2px solid lightblue;
-    margin-left: 1rem;
+  padding: 0 0.5rem;
+  margin-left: 0.75rem;
+}
+
+@media (max-width: 600px) {
+  body {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .employee {
+    width: 100%;
+    margin: 1rem 0;
+  }
 }

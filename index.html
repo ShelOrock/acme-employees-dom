@@ -1,23 +1,68 @@
 <html>
-    <head>
-        <title>Acme Employees DOM</title>
-        <link rel="stylesheet" href="styles.css" />
-    </head>
-    <body>
-        <h1>Acme Employees DOM</h1>
-        <div id='main-container'>
-            <p>Choose your three favorite employees.</p>
-            <div id="grid">
-                <div class="employee">moe</div>
-                <div class="employee">larry</div>
-                <div class="employee">shep</div>
-                <div class="employee">curly</div>
-                <div class="employee">groucho</div>
-                <div class="employee">harpo</div>
-                <div class="employee">shep Jr.</div>
-                <div class="employee">lucy</div>
-            </div>
-            <p>Favorite: <span class='fav-employee'></span></p>
-        </div>
-    </body>
+  <head>
+    <title>Acme Employees DOM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Acme Employees DOM</h1>
+    <p>Choose your three favorite employees.</p> 
+      <div id="grid">
+        <div class="employee">moe</div>
+        <div class="employee">larry</div>
+        <div class="employee">shep</div>
+        <div class="employee">curly</div>
+        <div class="employee">groucho</div>
+        <div class="employee">harpo</div>
+        <div class="employee">shep Jr.</div>
+        <div class="employee">lucy</div>
+      </div>
+    <p>Favorite: <span class="fav-employee"></span></p>
+  </body>
+  <script>
+    const employees = [
+      { id: 1, name: 'moe' },
+      { id: 2, name: 'larry' },
+      { id: 4, name: 'shep' },
+      { id: 3, name: 'curly' },
+      { id: 5, name: 'groucho' },
+      { id: 6, name: 'harpo' },
+      { id: 8, name: 'shep Jr.' },
+      { id: 99, name: 'lucy' },
+    ];
+    const favEmployee = document.querySelectorAll('div .employee');
+    let favorites = [];
+    favEmployee.forEach(node =>
+      node.addEventListener('click', evt => {
+        if (
+          favorites.length === 3 &&
+          !evt.target.classList.contains('fav-employee')
+        ) {
+          alert('there is a max of 3 favorites, sorry.');
+        } else {
+          if (evt.target.classList.contains('fav-employee')) {
+            evt.target.classList.remove('fav-employee');
+
+            employees.forEach(employee => {
+              let idToFilterOut;
+              if (employee.name === evt.target.innerText) {
+                idToFilterOut = employee.id;
+              }
+              favorites = favorites.filter(idToSearch => {
+                return idToSearch !== idToFilterOut;
+              });
+            });
+          } else {
+            evt.target.classList.add('fav-employee');
+            employees.forEach(employee => {
+              if (employee.name === evt.target.innerText) {
+                favorites.push(employee.id);
+              }
+            });
+          }
+        }
+        console.log(favorites);
+      })
+    );
+  </script>
 </html>
