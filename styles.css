@@ -7,17 +7,18 @@ body {
     flex-wrap: wrap;
 }
 
-.employee {
+.employee-box {
     margin: 1rem;
-    width: 200px;
+    width: calc((100% / 3) - 2rem);
     background-color: lightblue;
     border: 2px solid gold;
     text-align: center;
     font-size: 1.75rem;
     padding: 1.5rem;
+    box-sizing: border-box;
 }
 
-.fav-employee {
+.isFavorite {
     background-color: beige;
 }
 
@@ -25,4 +26,14 @@ span {
     padding: 0 0.5rem;
     border: 2px solid lightblue;
     margin-left: 1rem;
+}
+
+@media (max-width: 600px) {
+    #grid {
+        flex-direction: column;
+    }
+
+    .employee-box {
+        width: 90%;
+    }
 }

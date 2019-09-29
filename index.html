@@ -5,22 +5,14 @@
   </head>
   <body>
     <h1>Acme Employees DOM</h1>
-    <div id="main-container">
       <p>Choose your three favorite employees.</p>
       <div id="grid">
-        <div class="employee">moe</div>
-        <div class="employee">larry</div>
-        <div class="employee">shep</div>
-        <div class="employee">curly</div>
-        <div class="employee">groucho</div>
-        <div class="employee">harpo</div>
-        <div class="employee">shep Jr.</div>
-        <div class="employee">lucy</div>
+
       </div>
-      <p>Favorite: <span class="fav-employee"></span></p>
-    </div>
+      <p>Favorite: <span class="isFavorite"></span></p>
   </body>
   <script>
+
     const employees = [
       { id: 1, name: 'moe' },
       { id: 2, name: 'larry' },
@@ -31,37 +23,41 @@
       { id: 8, name: 'shep Jr.' },
       { id: 99, name: 'lucy' },
     ];
-    const favEmployee = document.querySelectorAll('div .employee');
-    console.log(favEmployee);
-    let empId = [];
-    favEmployee.forEach((node, idx) =>
-      node.addEventListener('click', evt => {
-        if (empId.length >= 3 && !evt.target.classList.contains('fav-employee')) {
-          alert('Something');
+
+    const employeeList = document.querySelector('#grid')
+
+    const render = (state, container) => {
+      const html = state.map((item, idx) => `<div data-idx="${idx}" class="employee-box${item.isFavorite ? ' isFavorite' : ''}">${item.name}</div>`).join('');
+      container.innerHTML = html;
+    }
+
+    render(employees, employeeList)
+
+    employees.forEach(item => {
+        item.isFavorite = false;
+    });
+
+    const employeeBox = document.querySelectorAll('.employee-box')
+    let favoriteList = [];
+
+    employeeList.addEventListener('click', (ev) => {
+      if(ev.target.classList.contains('employee-box')) {
+        const idx = ev.target.getAttribute('data-idx');
+        if(favoriteList.length == 3 && !employees[idx].isFavorite) {
+          alert('there is a max of 3 favorites, sorry');
         } else {
-            if(evt.target.classList.contains('fav-employee')){
-                evt.target.classList.remove('fav-employee');
-            
-            }
+          employees[idx].isFavorite = !employees[idx].isFavorite;
+          if(employees[idx].isFavorite) {
+            favoriteList.push(employees[idx].id);
+          } else {
+            favoriteList.splice(favoriteList.indexOf(employees[idx].id), 1);
+          }
+        console.log(favoriteList);
+        render(employees, employeeList)
         }
+      }
+    });
+
           
-        console.log(empId);
-      })
-    );
   </script>
 </html>
-
-
-//evt.target.classList.add('fav-employee');
-  //        employees.forEach(item => {
-    //        if (item.name === evt.target.innerText) {
-      //        empId.push(item.id);
-        //    }
-        //  });
-       // }
-
-         //if (evt.target.classList.contains('fav-employee')) {
-          //evt.target.classList.remove('fav-employee');
-         // if(item.name === evt.target.innerText){
-           //     empId.push(item.id);
-       // }
