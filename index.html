@@ -1,22 +1,13 @@
 <html>
   <head>
     <title>Acme Employees DOM</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <h1>Acme Employees DOM</h1>
-    <p>Choose your three favorite employees.</p> 
-      <div id="grid">
-        <div class="employee">moe</div>
-        <div class="employee">larry</div>
-        <div class="employee">shep</div>
-        <div class="employee">curly</div>
-        <div class="employee">groucho</div>
-        <div class="employee">harpo</div>
-        <div class="employee">shep Jr.</div>
-        <div class="employee">lucy</div>
-      </div>
+    <p>Choose your three favorite employees.</p>
+    <div id="grid"></div>
     <p>Favorite: <span class="fav-employee"></span></p>
   </body>
   <script>
@@ -28,14 +19,19 @@
       { id: 5, name: 'groucho' },
       { id: 6, name: 'harpo' },
       { id: 8, name: 'shep Jr.' },
-      { id: 99, name: 'lucy' },
+      { id: 9, name: 'lucy' },
     ];
-    const favEmployee = document.querySelectorAll('div .employee');
+
     let favorites = [];
+    let grid = document.querySelector('#grid');
+    grid.innerHTML = employees
+      .map(employee => `<div class="employee">${employee.name}</div>`)
+      .join('');
+    const favEmployee = document.querySelectorAll('div .employee');
     favEmployee.forEach(node =>
       node.addEventListener('click', evt => {
         if (
-          favorites.length === 3 &&
+          localStorage.length === 3 &&
           !evt.target.classList.contains('fav-employee')
         ) {
           alert('there is a max of 3 favorites, sorry.');
@@ -56,6 +52,7 @@
             evt.target.classList.add('fav-employee');
             employees.forEach(employee => {
               if (employee.name === evt.target.innerText) {
+                localStorage.setItem(employee.id, employee.name)
                 favorites.push(employee.id);
               }
             });
