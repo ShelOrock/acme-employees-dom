@@ -1,22 +1,13 @@
 <html>
   <head>
     <title>Acme Employees DOM</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <h1>Acme Employees DOM</h1>
-    <p>Choose your three favorite employees.</p> 
-      <div id="grid">
-        <div class="employee">moe</div>
-        <div class="employee">larry</div>
-        <div class="employee">shep</div>
-        <div class="employee">curly</div>
-        <div class="employee">groucho</div>
-        <div class="employee">harpo</div>
-        <div class="employee">shep Jr.</div>
-        <div class="employee">lucy</div>
-      </div>
+    <p>Choose your three favorite employees.</p>
+    <div id="grid"></div>
     <p>Favorite: <span class="fav-employee"></span></p>
   </body>
   <script>
@@ -28,41 +19,41 @@
       { id: 5, name: 'groucho' },
       { id: 6, name: 'harpo' },
       { id: 8, name: 'shep Jr.' },
-      { id: 99, name: 'lucy' },
+      { id: 9, name: 'lucy' },
     ];
-    const favEmployee = document.querySelectorAll('div .employee');
-    let favorites = [];
-    favEmployee.forEach(node =>
-      node.addEventListener('click', evt => {
+
+    //let favorites = [];
+    let grid = document.querySelector('#grid');
+    grid.innerHTML = employees
+      .map(
+        employee =>
+          `<div class="employee ${
+            localStorage.getItem(employee.id) ? 'fav-employee' : ''
+          }">${employee.name}</div>`
+      )
+      .join('');
+    let employeeCards = document.querySelectorAll('.employee');
+    employeeCards.forEach(employee => {
+      employee.addEventListener('click', evt => {
+        let obj = employees.find(item => item.name === evt.target.innerText);
         if (
-          favorites.length === 3 &&
+          localStorage.length === 3 &&
           !evt.target.classList.contains('fav-employee')
         ) {
-          alert('there is a max of 3 favorites, sorry.');
+          alert('too many');
+        } else if (
+          localStorage.length < 3 &&
+          !evt.target.classList.contains('fav-employee')
+        ) {
+          evt.target.classList.add('fav-employee');
+          //favorites.push(evt.target.innerText);
+          localStorage.setItem(obj.id, obj.name);
         } else {
-          if (evt.target.classList.contains('fav-employee')) {
-            evt.target.classList.remove('fav-employee');
-
-            employees.forEach(employee => {
-              let idToFilterOut;
-              if (employee.name === evt.target.innerText) {
-                idToFilterOut = employee.id;
-              }
-              favorites = favorites.filter(idToSearch => {
-                return idToSearch !== idToFilterOut;
-              });
-            });
-          } else {
-            evt.target.classList.add('fav-employee');
-            employees.forEach(employee => {
-              if (employee.name === evt.target.innerText) {
-                favorites.push(employee.id);
-              }
-            });
-          }
+          evt.target.classList.remove('fav-employee');
+          //favorites = favorites.filter(item => item !== evt.target.innerText);
+          localStorage.removeItem(obj.id);
         }
-        console.log(favorites);
-      })
-    );
+      });
+    });
   </script>
 </html>
