@@ -22,44 +22,38 @@
       { id: 9, name: 'lucy' },
     ];
 
-    let favorites = [];
+    //let favorites = [];
     let grid = document.querySelector('#grid');
     grid.innerHTML = employees
-      .map(employee => `<div class="employee">${employee.name}</div>`)
+      .map(
+        employee =>
+          `<div class="employee ${
+            localStorage.getItem(employee.id) ? 'fav-employee' : ''
+          }">${employee.name}</div>`
+      )
       .join('');
-    const favEmployee = document.querySelectorAll('div .employee');
-    favEmployee.forEach(node =>
-      node.addEventListener('click', evt => {
+    let employeeCards = document.querySelectorAll('.employee');
+    employeeCards.forEach(employee => {
+      employee.addEventListener('click', evt => {
+        let obj = employees.find(item => item.name === evt.target.innerText);
         if (
           localStorage.length === 3 &&
           !evt.target.classList.contains('fav-employee')
         ) {
-          alert('there is a max of 3 favorites, sorry.');
+          alert('too many');
+        } else if (
+          localStorage.length < 3 &&
+          !evt.target.classList.contains('fav-employee')
+        ) {
+          evt.target.classList.add('fav-employee');
+          //favorites.push(evt.target.innerText);
+          localStorage.setItem(obj.id, obj.name);
         } else {
-          if (evt.target.classList.contains('fav-employee')) {
-            evt.target.classList.remove('fav-employee');
-
-            employees.forEach(employee => {
-              let idToFilterOut;
-              if (employee.name === evt.target.innerText) {
-                idToFilterOut = employee.id;
-              }
-              favorites = favorites.filter(idToSearch => {
-                return idToSearch !== idToFilterOut;
-              });
-            });
-          } else {
-            evt.target.classList.add('fav-employee');
-            employees.forEach(employee => {
-              if (employee.name === evt.target.innerText) {
-                localStorage.setItem(employee.id, employee.name)
-                favorites.push(employee.id);
-              }
-            });
-          }
+          evt.target.classList.remove('fav-employee');
+          //favorites = favorites.filter(item => item !== evt.target.innerText);
+          localStorage.removeItem(obj.id);
         }
-        console.log(favorites);
-      })
-    );
+      });
+    });
   </script>
 </html>
